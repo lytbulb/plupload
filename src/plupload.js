@@ -2322,7 +2322,7 @@ plupload.File = (function() {
 						xhr.send(formData);
 					} else {
 						// if no multipart, send as binary stream
-            url = plupload.buildUrl(options.url, plupload.extend(data, options.multipart_params));
+            // url = plupload.buildUrl(options.url, plupload.extend(data, options.multipart_params));
 						xhr.open(options.method, url, true);
 
             // xhr.setRequestHeader('Content-Type', 'application/octet-stream'); // Binary stream header
