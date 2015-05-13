@@ -1646,7 +1646,7 @@ plupload.Uploader = function(options) {
 
 			if (activeUploads.length < maxSlots) {
 				activeUploads.add(file.id, file);
-        file.upload(up.getOption());
+        file.upload(up.settings);
 
 				this.trigger('UploadFile', file);
 
