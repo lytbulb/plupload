@@ -722,8 +722,7 @@ plupload.addFileFilter('prevent_duplicates', function(value, file, cb) {
 	@param {String} [settings.flash_swf_url] URL of the Flash swf.
 	@param {Object} [settings.headers] Custom headers to send with the upload. Hash of name/value pairs.
 	@param {Number} [settings.max_retries=0] How many times to retry the chunk or file, before triggering Error event.
-	@param {String} [settings.method="post"] Either post or put.
-	@param {String} [settings.content_type="application/octet-stream"] For some upload hosts, you may need to set this to match file content_type exactly.
+	@param {String} [settings.multipart="post"] Either post or put.
 	@param {Boolean} [settings.multipart=true] Whether to send file and additional parameters as Multipart formated message.
 	@param {Object} [settings.multipart_params] Hash of key/value pairs to send with every file upload.
 	@param {Boolean} [settings.multi_selection=true] Enable ability to select multiple files at once in file dialog.
@@ -1412,7 +1411,6 @@ plupload.Uploader = function(options) {
 		max_upload_slots: 1,
 		chunk_size: 0,
 		method: 'post',
-    content_type: 'application/octet-stream',
 		multipart: true,
 		multi_selection: true,
 		file_data_name: 'file',
@@ -2337,9 +2335,9 @@ plupload.File = (function() {
             // url = plupload.buildUrl(options.url, plupload.extend(data, options.multipart_params));
 						xhr.open(options.method, url, true);
 
-            // xhr.setRequestHeader('Content-Type', 'application/octet-stream'); // Binary stream header
-            // don't hardcode content_type, allow it to be bassed in as setting
-            xhr.setRequestHeader('Content-Type', options.content_type);
+            if (!options.headers['Content-Type']) {
+						  xhr.setRequestHeader('Content-Type', 'application/octet-stream'); // Binary stream header
+            }
 
 						// Set custom headers
 						plupload.each(options.headers, function(value, name) {
