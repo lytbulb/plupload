@@ -1490,7 +1490,9 @@ plupload.Uploader = function(options) {
 
         xhr.open(up.settings.method, url, true);
 
-				xhr.setRequestHeader('Content-Type', 'application/octet-stream'); // Binary stream header
+        if (!up.settings.headers['Content-Type']) {
+					xhr.setRequestHeader('Content-Type', 'application/octet-stream'); // Binary stream header
+        }
 
 				// Set custom headers
 				plupload.each(up.settings.headers, function(value, name) {
